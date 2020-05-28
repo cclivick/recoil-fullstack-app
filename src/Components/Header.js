@@ -1,20 +1,14 @@
-import React from 'react';
-import { useRecoilState } from 'recoil';
-import { headerData } from '../App';
+import React, { useState } from 'react';
+import Button from '@material-ui/core/Button';
 
-const Header = () => {
-    const [userHeaderData, setUserHeaderData] = useRecoilState(headerData)
-    console.log(headerData)
+const Header = ({ showUsers, setShowUsers }) => {
+    let label = showUsers ? "Hide Users" : "Show Users"
     return (
         <div>
             <h1>Header</h1>
-            <ul>
-                {userHeaderData.map(headerLink => {
-                    return (
-                        <li>{headerLink.genre}</li>
-                    )
-                })}
-            </ul>
+            <Button variant="contained" color="primary" onClick={e => setShowUsers(!showUsers)}>
+                {label}
+            </Button>
         </div>
     )
 }

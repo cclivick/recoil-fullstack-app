@@ -3,24 +3,41 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import ApolloClient from 'apollo-boost';
-import { gql } from "apollo-boost";
+import AWSAppSyncClient from 'aws-appsync';
+import { ApolloProvider } from 'react-apollo';
+import awsconfiguration from './awsconfiguration.json';
+import gql from 'graphql-tag';
 
-const client = new ApolloClient({
-  uri: "",
+const config = awsconfiguration.AppSync.Default;
+
+const client = new AWSAppSyncClient({
+  url: config.ApiUrl,
+  region: config.Region,
+  auth: {
+    type: config.AuthMode,
+    apiKey: config.ApiKey,
+    // jwtToken: async () => token, // Required when you use Cognito UserPools OR OpenID Connect. token object is obtained previously
+  }
 });
 
-client
-  .query({
-    query: gql`
+export const GET_USERS = gql`
+query getUsers {
+  allUsers{
+    firstName,
+    lastName,
+    favGenres
+  }
+}
+`
 
-    `
-  })
-  .then(result => console.log(result));
+client.query({ query: GET_USERS })
+  .then(result => console.log(result))
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
