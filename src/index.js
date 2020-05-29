@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import AWSAppSyncClient from 'aws-appsync';
 import { ApolloProvider } from 'react-apollo';
-import awsconfiguration from './awsconfiguration.json';
+import awsconfiguration from '../APIconfig/awsconfiguration.json';
 import gql from 'graphql-tag';
 
 const config = awsconfiguration.AppSync.Default;
