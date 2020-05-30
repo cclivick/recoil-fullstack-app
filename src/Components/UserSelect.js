@@ -1,19 +1,52 @@
-import React from 'react';
-import { useQuery } from 'react-apollo';
-import { gql } from 'apollo-boost';
-import { GET_USERS } from '../index';
+import React, { useState } from 'react';
+import { makeStyles, createStyles } from '@material-ui/core/styles'
+import { Query } from 'react-apollo';
+import { GET_USERS } from '../GraphQL/Queries';
+import { useRecoilState } from 'recoil';
+import { userProfile } from '../App';
+import {
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+} from '@material-ui/core'
 
-export default function UserSelect() {
-    const { loading, error, data } = useQuery(GET_USERS)
+const useStyles = makeStyles((theme) =>
+    createStyles({
+        formControl: {
+            marginLeft: "20px",
+            minWidth: 150,
+        },
+        selectEmpty: {
+            marginTop: theme.spacing(2),
+        },
+    }),
+);
 
-    if (loading) return <p>Loading</p>;
-    if (error) return <p>Error :(</p>
-
-    console.log(data)
+const UserSelect = ({ setShowUsers }) => {
+    const [selectedUser, setSelectedUser] = useState('');
+    const [profileInfo, setProfileInfo] = useRecoilState(userProfile)
+    const classes = useStyles();
 
     return (
-        <select>
+        <Query query={GET_USERS}>
+            {({ loading, error, data }) => {
+                if (loading) return <div>Fetching</div>
+                if (error) return <div>Error</div>
 
-        </select>
+                const userData = data.allUsers
+                return (
+                    <FormControl className={classes.formControl}>
+                        <InputLabel>Users</InputLabel>
+                        <Select value={selectedUser} onChange={event => (setSelectedUser(event.target.value), setProfileInfo(event.target.value), setShowUsers(false))}>
+                            {userData.map(user => <MenuItem value={user} key={user.id}>{user.firstName} {user.lastName}</MenuItem>)}
+                        </Select>
+                    </FormControl>
+                )
+            }}
+        </Query>
     )
+
 };
+
+export default UserSelect;

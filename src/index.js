@@ -5,8 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import AWSAppSyncClient from 'aws-appsync';
 import { ApolloProvider } from 'react-apollo';
-import awsconfiguration from '../APIconfig/awsconfiguration.json';
-import gql from 'graphql-tag';
+import awsconfiguration from './APIconfig/awsconfiguration.json';
 
 const config = awsconfiguration.AppSync.Default;
 
@@ -16,22 +15,8 @@ const client = new AWSAppSyncClient({
   auth: {
     type: config.AuthMode,
     apiKey: config.ApiKey,
-    // jwtToken: async () => token, // Required when you use Cognito UserPools OR OpenID Connect. token object is obtained previously
   }
 });
-
-export const GET_USERS = gql`
-query getUsers {
-  allUsers{
-    firstName,
-    lastName,
-    favGenres
-  }
-}
-`
-
-client.query({ query: GET_USERS })
-  .then(result => console.log(result))
 
 ReactDOM.render(
   <React.StrictMode>

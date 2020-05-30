@@ -24,6 +24,9 @@
     "recoil": "0.0.7",
     "uuid": "^8.1.0"
   },
+  "resolutions": {
+    "apollo-client": "2.6.4"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
