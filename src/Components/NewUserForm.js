@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FormControl, TextField, Button } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { CREATE_USER } from '../GraphQL/Mutations';
+import { useMutation } from '@apollo/react-hooks';
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -46,6 +48,25 @@ const useStyles = makeStyles(() =>
 
 const NewUserForm = () => {
     const classes = useStyles();
+    const [createUser, { data }] = useMutation(CREATE_USER)
+    const [newUserData, setNewUserData] = useState({});
+    
+    const setData = () => {
+        setNewUserData({
+            id: '',
+            firstName: document.getElementById("firstName").value,
+            lastName: document.getElementById("lastName").value,
+            favGenres: [
+                document.getElementById("genre1").value, 
+                document.getElementById("genre2").value, 
+                document.getElementById("genre3").value, 
+                document.getElementById("genre4").value, 
+                document.getElementById("genre5").value
+            ]
+        });
+        createUser({ variables: newUserData });
+        setNewUserData({});
+    }
     return (
         <FormControl className={classes.root}>
             <h4 className="formTitle">Create New User</h4>
@@ -59,7 +80,9 @@ const NewUserForm = () => {
             <TextField id="genre3" className="genreInput" />
             <TextField id="genre4" className="genreInput" />
             <TextField id="genre5" className="genreInput" />
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={e => {
+                setData()
+            }}>
                 Create
             </Button>
         </FormControl>

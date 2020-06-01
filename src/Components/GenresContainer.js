@@ -27,7 +27,7 @@ const GenresContainer = ({ genres }) => {
         <div className={classes.genreContainerRoot}>
             {genres.map(genre => {
                 return (
-                    <div className="genreCard" id={genre}>
+                    <div className="genreCard" key={Math.random()}>
                         <h5>{genre}</h5>
                     </div>
                 )

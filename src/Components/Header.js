@@ -32,7 +32,7 @@ const Header = ({ showUsers, setShowUsers, setNewUser }) => {
         <div className={classes.headerRoot}>
             <h1 className="titleRoot">Genre Sort App</h1>
             <div className="headerButtonDiv">
-                <Button className="naviButton" variant="contained" color="primary" onClick={e => (setShowUsers(!showUsers), setNewUser(false))}>
+                <Button className="naviButton" variant="contained" color="primary" onClick={e => (setShowUsers(!showUsers), setNewUser(false), setCurrentUser(null))}>
                     {label}
                 </Button>
                 {showUsers ?

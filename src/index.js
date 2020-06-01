@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import AWSAppSyncClient from 'aws-appsync';
 import { ApolloProvider } from 'react-apollo';
 import awsconfiguration from './APIconfig/awsconfiguration.json';
+import {GET_USERS} from './GraphQL/Queries';
 
 const config = awsconfiguration.AppSync.Default;
 
@@ -16,6 +17,10 @@ const client = new AWSAppSyncClient({
     type: config.AuthMode,
     apiKey: config.ApiKey,
   }
+});
+
+client.query({ query: GET_USERS }).then(res => {
+  return;
 });
 
 ReactDOM.render(
