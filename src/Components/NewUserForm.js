@@ -49,42 +49,57 @@ const useStyles = makeStyles(() =>
 const NewUserForm = () => {
     const classes = useStyles();
     const [createUser, { data }] = useMutation(CREATE_USER)
-    const [newUserData, setNewUserData] = useState({});
-    
-    const setData = () => {
-        setNewUserData({
-            id: '',
-            firstName: document.getElementById("firstName").value,
-            lastName: document.getElementById("lastName").value,
-            favGenres: [
-                document.getElementById("genre1").value, 
-                document.getElementById("genre2").value, 
-                document.getElementById("genre3").value, 
-                document.getElementById("genre4").value, 
-                document.getElementById("genre5").value
-            ]
-        });
-        createUser({ variables: newUserData });
-        setNewUserData({});
-    }
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [genre1, setGenre1] = useState("")
+    const [genre2, setGenre2] = useState("")
+    const [genre3, setGenre3] = useState("")
+    const [genre4, setGenre4] = useState("")
+    const [genre5, setGenre5] = useState("")
+
+    console.log({
+        firstName,
+        lastName,
+        "favGenres": [
+            genre1,
+            genre2,
+            genre3,
+            genre4,
+            genre5
+        ]
+    })
+
     return (
         <FormControl className={classes.root}>
             <h4 className="formTitle">Create New User</h4>
             <div>
-                <TextField id="firstName" label="First Name" type="search" className="formInput" />
-                <TextField id="lastName" label="Last Name" type="search" className="formInput" />
+                <TextField id="firstName" label="First Name" type="search" className="formInput" onChange={e => setFirstName(e.target.value)} />
+                <TextField id="lastName" label="Last Name" type="search" className="formInput" onChange={e => setLastName(e.target.value)} />
             </div>
             <h5 className="genreHelperText">Enter your favorite genres (up to 5)</h5>
-            <TextField id="genre1" className="genreInput" />
-            <TextField id="genre2" className="genreInput" />
-            <TextField id="genre3" className="genreInput" />
-            <TextField id="genre4" className="genreInput" />
-            <TextField id="genre5" className="genreInput" />
-            <Button variant="contained" color="primary" onClick={e => {
-                setData()
+            <TextField id="genre1" className="genreInput" onChange={e => setGenre1(e.target.value)} />
+            <TextField id="genre2" className="genreInput" onChange={e => setGenre2(e.target.value)} />
+            <TextField id="genre3" className="genreInput" onChange={e => setGenre3(e.target.value)} />
+            <TextField id="genre4" className="genreInput" onChange={e => setGenre4(e.target.value)} />
+            <TextField id="genre5" className="genreInput" onChange={e => setGenre5(e.target.value)} />
+            <Button variant="contained" color="primary" onClick={() => {
+                createUser({
+                    variables: {
+                        id: "wfiwfjwofijwfoiwjfowiefjwofijwoefiwjfowijefwoifjwofeijwefoiwjef",
+                        firstName: firstName,
+                        lastName: lastName,
+                        favGenres: [
+                            genre1,
+                            genre2,
+                            genre3,
+                            genre4,
+                            genre5
+                        ]
+                    }
+                })
             }}>
                 Create
-            </Button>
+                </Button>
         </FormControl>
     )
 };
