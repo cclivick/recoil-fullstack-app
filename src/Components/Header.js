@@ -13,6 +13,7 @@ const useStyles = makeStyles(() =>
                 padding: "10px"
             },
             "& .headerButtonDiv": {
+                display: "flex",
                 position: "fixed",
                 right: 0,
                 "& .naviButton": {
@@ -24,7 +25,7 @@ const useStyles = makeStyles(() =>
 );
 
 
-const Header = ({ showUsers, setShowUsers, setNewUser }) => {
+const Header = ({ showUsers, setShowUsers, setNewUser, setEditUser }) => {
     const [currentUser, setCurrentUser] = useRecoilState(userProfile)
     let label = showUsers ? "Hide Users" : "Show Users";
     const classes = useStyles();
@@ -32,13 +33,15 @@ const Header = ({ showUsers, setShowUsers, setNewUser }) => {
         <div className={classes.headerRoot}>
             <h1 className="titleRoot">Genre Sort App</h1>
             <div className="headerButtonDiv">
-                <Button className="naviButton" variant="contained" color="primary" onClick={e => (setShowUsers(!showUsers), setNewUser(false), setCurrentUser(null))}>
+                <Button className="naviButton" variant="contained" color="primary" onClick={e => (setShowUsers(!showUsers), setNewUser(false), setCurrentUser(null), setEditUser(false))}>
                     {label}
                 </Button>
                 {showUsers ?
+                    <div>
                     <Button className="naviButton" variant="contained" color="primary" onClick={e => (setNewUser(true), setShowUsers(false), setCurrentUser(null))}>
                         Add User
-                    </Button> : null
+                    </Button>
+                    </div> : null
                 }
             </div>
         </div>

@@ -17,7 +17,10 @@ const useStyles = makeStyles(() =>
 const AppWrapper = () => {
     const [showUsers, setShowUsers] = useState(Boolean);
     const [newUser, setNewUser] = useState(false);
+    const [editUser, setEditUser] = useState(false);
     const classes = useStyles();
+
+    console.log(editUser)
 
     return (
         <div className={classes.wrapperRoot}>
@@ -25,11 +28,14 @@ const AppWrapper = () => {
                 setShowUsers={setShowUsers}
                 showUsers={showUsers}
                 setNewUser={setNewUser}
+                setEditUser={setEditUser}
             />
             <MainContent
                 setShowUsers={setShowUsers}
                 showUsers={showUsers}
                 newUser={newUser}
+                editUser={editUser}
+                setEditUser={setEditUser}
             />
             <Footer />
         </div>

@@ -48,7 +48,7 @@ const useStyles = makeStyles(() =>
 
 const NewUserForm = () => {
     const classes = useStyles();
-    const [createUser, { data }] = useMutation(CREATE_USER)
+    const [createUser, {data}] = useMutation(CREATE_USER)
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [genre1, setGenre1] = useState("")
@@ -57,50 +57,39 @@ const NewUserForm = () => {
     const [genre4, setGenre4] = useState("")
     const [genre5, setGenre5] = useState("")
 
-    console.log({
-        firstName,
-        lastName,
-        "favGenres": [
-            genre1,
-            genre2,
-            genre3,
-            genre4,
-            genre5
-        ]
-    })
-
     return (
-        <FormControl className={classes.root}>
-            <h4 className="formTitle">Create New User</h4>
-            <div>
-                <TextField id="firstName" label="First Name" type="search" className="formInput" onChange={e => setFirstName(e.target.value)} />
-                <TextField id="lastName" label="Last Name" type="search" className="formInput" onChange={e => setLastName(e.target.value)} />
-            </div>
-            <h5 className="genreHelperText">Enter your favorite genres (up to 5)</h5>
-            <TextField id="genre1" className="genreInput" onChange={e => setGenre1(e.target.value)} />
-            <TextField id="genre2" className="genreInput" onChange={e => setGenre2(e.target.value)} />
-            <TextField id="genre3" className="genreInput" onChange={e => setGenre3(e.target.value)} />
-            <TextField id="genre4" className="genreInput" onChange={e => setGenre4(e.target.value)} />
-            <TextField id="genre5" className="genreInput" onChange={e => setGenre5(e.target.value)} />
-            <Button variant="contained" color="primary" onClick={() => {
-                createUser({
-                    variables: {
-                        id: "wfiwfjwofijwfoiwjfowiefjwofijwoefiwjfowijefwoifjwofeijwefoiwjef",
-                        firstName: firstName,
-                        lastName: lastName,
-                        favGenres: [
-                            genre1,
-                            genre2,
-                            genre3,
-                            genre4,
-                            genre5
-                        ]
-                    }
-                })
-            }}>
-                Create
+        <form onSubmit={e => {
+            createUser({
+                variables: {
+                    firstName: firstName,
+                    lastName: lastName,
+                    favGenres: [
+                        genre1,
+                        genre2,
+                        genre3,
+                        genre4,
+                        genre5
+                    ]
+                }
+            });
+        }}>
+            <FormControl className={classes.root}>
+                <h4 className="formTitle">Create New User</h4>
+                <div>
+                    <TextField id="firstName" label="First Name" type="search" className="formInput" onChange={e => setFirstName(e.target.value)} />
+                    <TextField id="lastName" label="Last Name" type="search" className="formInput" onChange={e => setLastName(e.target.value)} />
+                </div>
+                <h5 className="genreHelperText">Enter your favorite genres (up to 5)</h5>
+                <TextField id="genre1" className="genreInput" onChange={e => setGenre1(e.target.value)} />
+                <TextField id="genre2" className="genreInput" onChange={e => setGenre2(e.target.value)} />
+                <TextField id="genre3" className="genreInput" onChange={e => setGenre3(e.target.value)} />
+                <TextField id="genre4" className="genreInput" onChange={e => setGenre4(e.target.value)} />
+                <TextField id="genre5" className="genreInput" onChange={e => setGenre5(e.target.value)} />
+                <Button variant="contained" color="primary" type="submit">
+                    Create
                 </Button>
-        </FormControl>
+            </FormControl>
+        </form>
     )
 };
 
