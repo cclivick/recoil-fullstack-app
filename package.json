@@ -20,7 +20,7 @@
     "react-apollo": "^3.1.5",
     "react-apollo-hooks": "^0.5.0",
     "react-dom": "16.13.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "recoil": "0.0.7",
     "uuid": "^8.1.0"
   },
